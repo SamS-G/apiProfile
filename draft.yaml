@@ -1,0 +1,12 @@
+models:
+   Profile:
+     last_name: string:255
+     first_name: string:255
+     avatar: binary
+     user_id: id foreign:user.id
+     relationships:
+       belongsTo: User
+
+seeders: Profile
+
+
