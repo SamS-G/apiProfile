@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\ProfileRepositoryInterface;
-use App\Repositories\ProfileRepository;
+use App\Repository\ProfileRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider

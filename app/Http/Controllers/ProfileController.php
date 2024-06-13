@@ -6,10 +6,9 @@
     use App\Http\Requests\CreateProfileRequest;
     use App\Http\Requests\UpdateProfileRequest;
     use App\Http\Resources\ProfileResource;
-    use App\Http\Response\ApiResponse;
+    use App\Http\Responses\ApiResponse;
     use App\Interfaces\ProfileRepositoryInterface;
     use Illuminate\Http\JsonResponse;
-    use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use Throwable;
 
