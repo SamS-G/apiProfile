@@ -2,9 +2,7 @@
 
     namespace App\Http\Requests;
 
-    use HttpResponseException;
     use Illuminate\Contracts\Validation\ValidationRule;
-    use Illuminate\Contracts\Validation\Validator;
     use Illuminate\Foundation\Http\FormRequest;
 
     class CreateProfileRequest extends FormRequest
@@ -28,17 +26,5 @@
                 'lastname' => 'required|string|max:255',
                 'firstname' => 'required|string|max:255'
             ];
-        }
-
-        /**
-         * @throws HttpResponseException
-         */
-        public function validationFailed(Validator $validator)
-        {
-            throw new HttpResponseException(response()->json([
-                'success' => false,
-                'message' => 'Profile update failed',
-                'errors' => $validator->errors()
-            ]));
         }
     }
