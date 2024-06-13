@@ -9,6 +9,7 @@
     use App\Http\Responses\ApiResponse;
     use App\Interfaces\ProfileRepositoryInterface;
     use Illuminate\Http\JsonResponse;
+    use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\DB;
     use Throwable;
 
@@ -17,6 +18,7 @@
         public function __construct(ProfileRepositoryInterface $profileRepository)
         {
             $this->profileRepository = $profileRepository;
+            $this->apiResponse = new ApiResponse();
         }
 
         public function index(): JsonResponse
@@ -50,7 +52,8 @@
 
                 return ApiResponse::success(new ProfileResource($profile), 'Profile created successfully.', 201);
             } catch (Throwable $t) {
-                ApiResponse::fail($t);
+                DB::rollBack();
+                $this->apiResponse->error($t->getMessage(), 500, [$t->getTraceAsString()]);
             }
         }
 
@@ -71,11 +74,12 @@
 
                 return ApiResponse::success(new ProfileResource($profile), 'Profile updated successfully.', 201);
             } catch (Throwable $t) {
-                ApiResponse::fail($t);
+                DB::rollBack();
+                $this->apiResponse->error($t->getMessage(), 500, [$t->getTraceAsString()]);
             }
         }
 
-        public function delete($id): JsonResponse
+        public function destroy($id): JsonResponse
         {
             $this->profileRepository->delete($id);
 
