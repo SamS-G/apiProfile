@@ -9,8 +9,10 @@
 
     class ApiResponse
     {
-        public static function success($data = [], $message = 'Process success', $code = 200): JsonResponse
+        public static function success(string $message, int $code, array $data): JsonResponse
         {
+            Log::notice($message, $data);
+
             $response = [
                 'success' => true,
                 'data' => $data,
@@ -20,21 +22,14 @@
             return response()->json($response, $code);
         }
 
-        public static function error($data = [], $message = 'Process error, no changes', $code = 500): JsonResponse
+        public static function error(string $message, int $code, array $data = []): JsonResponse
         {
-            Log::error($data);
-            throw new HttpResponseException(response()->json([
-                'code' => $code,
-                'message' => $message
-            ]));
-        }
+            Log::error($message, $data);
 
-        public static function fail($e, $message = 'Process fail, rollback !', $code = 500): void
-        {
-            DB::rollBack();
-            self::error([
-                'exception' => $e->getMessage(),
-                'message' => $message
-            ], $code);
+            throw new HttpResponseException(response()->json([
+                'success' => false,
+                'message' => $message,
+                'code' => $code
+            ]));
         }
     }
