@@ -26,20 +26,10 @@
         {
 
             return [
+                'id' =>'required|exists:users,id',
                 'lastname' => 'required|string|max:255',
-                'firstname' => 'required|string|max:255'
+                'firstname' => 'required|string|max:255',
+                "status" => "required|in:actif,inactif,'en attente'"
             ];
-        }
-
-        /**
-         * @throws HttpResponseException
-         */
-        public function validationFailed(Validator $validator)
-        {
-            throw new HttpResponseException(response()->json([
-                'success' => false,
-                'message' => 'Profile update failed',
-                'errors' => $validator->errors()
-            ]));
         }
     }
