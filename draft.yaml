@@ -2,11 +2,9 @@ models:
    Profile:
      last_name: string:255
      first_name: string:255
-     avatar: binary
-     user_id: id foreign:user.id
-     relationships:
-       belongsTo: User
+     avatar: string:255 nullable
+     status: enum:actif,inactif, en attente
 
-seeders: Profile
+seeders: Profile, User
 
 

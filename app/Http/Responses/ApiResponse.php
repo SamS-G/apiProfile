@@ -4,19 +4,18 @@
 
     use Illuminate\Http\Exceptions\HttpResponseException;
     use Illuminate\Http\JsonResponse;
-    use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Log;
 
     class ApiResponse
     {
-        public static function success(string $message, int $code, array $data): JsonResponse
+        public static function success(string $message, int $code, mixed $data): JsonResponse
         {
-            Log::notice($message, $data);
+            Log::notice($message, (array) $data);
 
             $response = [
                 'success' => true,
-                'data' => $data,
                 'message' => $message,
+                'data' => $data,
             ];
 
             return response()->json($response, $code);
