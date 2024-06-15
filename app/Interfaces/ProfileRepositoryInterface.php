@@ -5,8 +5,8 @@ namespace App\Interfaces;
 interface ProfileRepositoryInterface
 {
     public function index();
-    public function getById($id);
+    public function getByName(array $names);
     public function create(array $data);
-    public function update(array $data, $id);
-    public function delete($id);
+    public function edit(int $id, array $data);
+    public function delete(int $id);
 }
