@@ -18,10 +18,7 @@ composer install
 npm i
 ```
 ``` bash
- php artisan install:api 
-```
-``` bash
-php artisan migrate
+php artisan migrate:refresh
 ```
 ``` bash
 php artisan db:seed
