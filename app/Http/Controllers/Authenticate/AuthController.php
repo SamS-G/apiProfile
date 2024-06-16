@@ -1,43 +1,38 @@
 <?php
 
-    namespace App\Http\Controllers;
+    namespace App\Http\Controllers\Authenticate;
 
     use AllowDynamicProperties;
-    use App\Http\Requests\LoginRequest;
-    use App\Http\Requests\RegisterRequest;
+    use App\Http\Controllers\BaseController;
+    use App\Http\Requests\Authenticate\LoginRequest;
+    use App\Http\Requests\Authenticate\RegisterRequest;
     use App\Models\User;
+    use App\Repository\User\UserRepository;
     use Exception;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Hash;
 
-    #[AllowDynamicProperties] class AuthController extends ProfileController
+    #[AllowDynamicProperties] class AuthController extends BaseController
     {
         public function register(RegisterRequest $request): JsonResponse
         {
             try {
-                $fields = [
+                $user = [
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => $request->password
+                    'password' => $request->password,
+                    'user_type_id' => 2
                 ];
 
-                $user = User::create([
-                    'name' => $fields['name'],
-                    'email' => $fields['email'],
-                    'password' => bcrypt($fields['password'])
+                (new UserRepository())->create($user);
 
+                return $this->apiResponse->success("New user successfully created, need activated by admin for full features access", 201, [
+                    'user' => $user
                 ]);
 
             } catch (Exception $e) {
-                return $this->apiResponse->error($e->getMessage(), 500, $e->getCode());
+                return $this->apiResponse->error($e->getMessage(), 500);
             }
-
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return $this->apiResponse->success("New user successfully created, need activated by admin for full features access", 201, [
-                'user' => $user,
-                'token' => $token
-            ]);
         }
 
         public function login(LoginRequest $request): JsonResponse
