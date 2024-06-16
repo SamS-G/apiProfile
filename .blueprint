@@ -1,0 +1,14 @@
+created:
+    - database/factories/ProfileFactory.php
+    - database/factories/UserFactory.php
+    - database/factories/UserTypeFactory.php
+    - database/migrations/2024_06_15_141208_create_profiles_table.php
+    - database/migrations/2024_06_15_141209_create_users_table.php
+    - database/migrations/2024_06_15_141210_create_user_types_table.php
+    - app/Models/Profile.php
+    - app/Models/User.php
+    - app/Models/UserType.php
+models:
+    Profile: { last_name: 'string:255', first_name: 'string:255', avatar: 'string:255 nullable', status: 'enum:actif,inactif,en_attente' }
+    User: { name: 'string:255', email: 'string:255', user_type_id: 'id foreign:userType.id', is_active: boolean, email_verified_at: 'dateTime nullable', password: string }
+    UserType: { libelle: 'string:255', relationships: { hasMany: User } }
