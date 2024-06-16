@@ -7,6 +7,7 @@ Pré-requis:
     
 * utiliser php 8.2
 * avoir composer installé
+* renseigner les coordonnées de votre base de données dans le .env
 
 Exécuter les commandes suivant (depuis Linux) :
 
@@ -25,7 +26,7 @@ php artisan migrate
 ``` bash
 php artisan db:seed
 ```
-* renseigner les coordonnées de votre base de données dans le .env
+
 ** **
 ### Endpoints
 
