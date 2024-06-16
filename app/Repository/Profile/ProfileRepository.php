@@ -1,9 +1,9 @@
 <?php
 
-    namespace App\Repository;
+    namespace App\Repository\Profile;
 
-    use App\Http\Responses\ApiResponse;
-    use App\Interfaces\ProfileRepositoryInterface;
+    use App\Http\Responses\API\ApiResponse;
+    use App\Interfaces\Profile\ProfileRepositoryInterface;
     use App\Models\Profile;
     use Illuminate\Database\Eloquent\Collection;
     use Illuminate\Http\JsonResponse;
@@ -15,11 +15,11 @@
             return Profile::where('status', 'actif')->get();
         }
 
-        public function getByName(array $names): Profile
+        public function getByName(array $names): \Illuminate\Support\Collection
         {
-            return Profile::where('last_name', 'like', $names['lastname'])
+            return collect(Profile::where('last_name', 'like', $names['lastname'])
                 ->where('first_name', 'like', $names['firstname'])
-                ->firstOrFail();
+                ->get());
         }
 
         public function create(array $data)
@@ -27,17 +27,13 @@
             return Profile::create($data);
         }
 
-        public function edit($id, $data)
+        public function edit($id, $data): int
         {
             return Profile::whereId($id)->update($data);
         }
 
-        public function delete($id): JsonResponse
+        public function delete($id): int
         {
-            if (Profile::destroy($id)) {
-                return ApiResponse::success('Profile deleted successfully', 204, ['user_deleted_id' => $id]);
-            }
-            return ApiResponse::error('Profile could not be deleted', 500);
-
+            return Profile::destroy($id);
         }
     }

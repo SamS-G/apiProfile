@@ -1,11 +1,11 @@
 <?php
 
-    namespace App\Http\Requests;
+    namespace App\Http\Requests\Profile;
 
     use Illuminate\Contracts\Validation\ValidationRule;
     use Illuminate\Foundation\Http\FormRequest;
 
-    class CreateProfileRequest extends FormRequest
+    class UpdateProfileRequest extends FormRequest
     {
         /**
          * Determine if the user is authorized to make this request.
@@ -23,6 +23,7 @@
         public function rules(): array
         {
             return [
+                'id' =>'required',
                 'lastname' => 'required|string|max:255',
                 'firstname' => 'required|string|max:255',
                 "status" => "required|in:actif,inactif,'en attente'"

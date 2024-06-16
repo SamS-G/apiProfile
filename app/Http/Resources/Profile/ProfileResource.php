@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Profile;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -22,7 +22,6 @@ class ProfileResource extends JsonResource
             'avatar' => $this->avatar,
             ...Auth::guard('sanctum')->check() ? ['status' => $this->status] : [], // If the current user is authenticated, status of profiles are visibles.
             'created_at' => $this->created_at->format('d-m-Y '),
-//            'updated_at' => $this->updated_at->format('d-m-Y '),
         ];
     }
 }
