@@ -9,6 +9,10 @@
 
     class IndexProfileController extends BaseController
     {
+        /*
+         * Public endpoint, index of all active Profiles.
+         * Column 'status' of profile not visible if current user don't use a valid token in the request
+         */
         public function index(): JsonResponse
         {
 

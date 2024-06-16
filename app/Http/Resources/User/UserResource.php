@@ -8,9 +8,7 @@
     class UserResource extends JsonResource
     {
         /**
-         * Transform the resource into an array.
-         *
-         * @return array<string, mixed>
+         * Transform the resource into an array and choosing data to send from response from the API.
          */
         public function toArray(Request $request): array
         {

@@ -13,5 +13,4 @@
             $this->profileRepository = $profileRepository;
             $this->apiResponse = new ApiResponse();
         }
-
     }

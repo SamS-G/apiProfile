@@ -10,7 +10,7 @@
     {
         public static function success(string $message, int $code, mixed $data): JsonResponse
         {
-            Log::notice($message, (array) $data);
+            Log::notice($message, (array)$data);
 
             $response = [
                 'success' => true,

@@ -2,11 +2,9 @@
 
     namespace App\Repository\Profile;
 
-    use App\Http\Responses\API\ApiResponse;
     use App\Interfaces\Profile\ProfileRepositoryInterface;
     use App\Models\Profile;
     use Illuminate\Database\Eloquent\Collection;
-    use Illuminate\Http\JsonResponse;
 
     class ProfileRepository implements ProfileRepositoryInterface
     {
@@ -19,6 +17,7 @@
         {
             return collect(Profile::where('last_name', 'like', $names['lastname'])
                 ->where('first_name', 'like', $names['firstname'])
+                ->where('status', 'actif')
                 ->get());
         }
 

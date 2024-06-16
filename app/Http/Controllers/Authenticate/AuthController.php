@@ -14,6 +14,10 @@
 
     #[AllowDynamicProperties] class AuthController extends BaseController
     {
+        /*
+        *   Register a new User.
+        *   Before manual validation is not an administrator and it is not active
+        */
         public function register(RegisterRequest $request): JsonResponse
         {
             try {
@@ -35,6 +39,10 @@
             }
         }
 
+        /*
+         * Logs in as administrator and sends a new token to access protected endpoints.
+         * The token is valid for 1 hour.
+         */
         public function login(LoginRequest $request): JsonResponse
         {
             $identifiers = [
@@ -60,6 +68,9 @@
             return $this->apiResponse->error('Login failed', 422);
         }
 
+        /*
+         * Revoke token, protected end points are closed for current user
+         */
         public function logout(): JsonResponse
         {
             auth()->user()->tokens()->delete();
