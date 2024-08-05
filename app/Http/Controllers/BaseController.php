@@ -2,12 +2,14 @@
 
     namespace App\Http\Controllers;
 
-    use AllowDynamicProperties;
     use App\Http\Responses\API\ApiResponse;
     use App\Interfaces\Profile\ProfileRepositoryInterface;
 
-    #[AllowDynamicProperties] class BaseController
+    class BaseController
     {
+        public ProfileRepositoryInterface $profileRepository;
+        public apiResponse $apiResponse;
+
         public function __construct(ProfileRepositoryInterface $profileRepository)
         {
             $this->profileRepository = $profileRepository;

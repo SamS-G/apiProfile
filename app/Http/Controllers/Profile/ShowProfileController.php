@@ -2,14 +2,13 @@
 
     namespace App\Http\Controllers\Profile;
 
-    use AllowDynamicProperties;
     use App\Http\Controllers\BaseController;
     use App\Http\Requests\Profile\ShowProfileRequest;
     use App\Http\Resources\Profile\ProfileResource;
     use App\Http\Responses\API\ApiResponse;
     use Illuminate\Http\JsonResponse;
 
-    #[AllowDynamicProperties] class ShowProfileController extends BaseController
+    class ShowProfileController extends BaseController
     {
         /*
          * Search existing and active profile, secured.

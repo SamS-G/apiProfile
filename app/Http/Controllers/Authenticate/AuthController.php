@@ -2,7 +2,6 @@
 
     namespace App\Http\Controllers\Authenticate;
 
-    use AllowDynamicProperties;
     use App\Http\Controllers\BaseController;
     use App\Http\Requests\Authenticate\LoginRequest;
     use App\Http\Requests\Authenticate\RegisterRequest;
@@ -12,7 +11,7 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Hash;
 
-    #[AllowDynamicProperties] class AuthController extends BaseController
+    class AuthController extends BaseController
     {
         /*
         *   Register a new User.
