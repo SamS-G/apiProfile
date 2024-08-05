@@ -4,7 +4,8 @@
 
     use App\Http\Controllers\BaseController;
     use App\Http\Requests\Profile\UpdateProfileRequest;
-    use App\Http\Responses\API\ApiResponse;
+    use App\Http\Responses\API\ApiSuccessResponse;
+    use App\Repository\Profile\ProfileRepository;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\DB;
 
@@ -13,7 +14,7 @@
         /*
          * Update profile for administrator with valid token
          */
-        public function edit(UpdateProfileRequest $request): JsonResponse
+        public function edit(UpdateProfileRequest $request, ProfileRepository $profileRepository): JsonResponse
         {
             // Validate request data
             $dataToUpdate = [
@@ -25,11 +26,11 @@
 
             DB::beginTransaction();
 
-            $edit = $this->profileRepository->edit($dataToUpdate['id'], $dataToUpdate);
+            $edit = $profileRepository->edit($dataToUpdate['id'], $dataToUpdate);
 
             if ($edit) {
                 DB::commit();
-                return ApiResponse::success('Profile updated successfully', 201, ['new_datas' => $dataToUpdate]);
+                return ApiSuccessResponse::success('Profile updated successfully', 201, ['new_datas' => $dataToUpdate]);
             }
 
             DB::rollBack();

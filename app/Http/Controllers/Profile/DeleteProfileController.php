@@ -3,7 +3,8 @@
     namespace App\Http\Controllers\Profile;
 
     use App\Http\Controllers\BaseController;
-    use App\Http\Responses\API\ApiResponse;
+    use App\Http\Responses\API\ApiSuccessResponse;
+    use App\Repository\Profile\ProfileRepository;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Validation\ValidationException;
     use Symfony\Component\HttpFoundation\Request;
@@ -16,18 +17,18 @@
         /**
          * @throws ValidationException
          */
-        public function delete(Request $request, int $id): JsonResponse
+        public function delete(Request $request, int $id, ProfileRepository $profileRepository): JsonResponse
         {
             validator($request->route()->parameters(), [
                 "id" => "required",
             ])->validate();
 
 
-            $destroy = $this->profileRepository->delete($id);
+            $destroy = $profileRepository->delete($id);
 
             if ($destroy) {
-                return ApiResponse::success('Profile deleted successfully', 204, ['user_deleted_id' => $id]);
+                return ApiSuccessResponse::success('Profile deleted successfully', 204, ['user_deleted_id' => $id]);
             }
-            return ApiResponse::error('Profile could not be deleted, check yours params', 500);
+            return ApiSuccessResponse::error('Profile could not be deleted, check yours params', 500);
         }
     }

@@ -4,7 +4,9 @@
 
     use App\Http\Controllers\BaseController;
     use App\Http\Requests\Profile\CreateProfileRequest;
-    use App\Http\Responses\API\ApiResponse;
+    use App\Http\Resources\Profile\ProfileResource;
+    use App\Http\Responses\API\ApiSuccessResponse;
+    use App\Repository\Profile\ProfileRepository;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\DB;
     use Throwable;
@@ -14,7 +16,7 @@
         /*
          * Create new profile for administrator with valid token
          */
-        public function create(CreateProfileRequest $request): JsonResponse
+        public function create(CreateProfileRequest $request, ProfileRepository $profileRepository): JsonResponse
         {
             // Get and validate data
             $data = [
@@ -26,11 +28,11 @@
             DB::beginTransaction();
 
             try {
-                $this->profileRepository->create($data);
+                $profileRepository->create($data);
 
                 DB::commit();
 
-                return ApiResponse::success('Profile created successfully', 201, [
+                return ApiSuccessResponse::success('Profile created successfully', 201, [
                     'new_user_data' => $data
                 ]);
             } catch (Throwable $t) {
