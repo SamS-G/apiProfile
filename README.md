@@ -35,7 +35,7 @@ php artisan db:seed
         Exemple d'appel :    
       {
          {   
-           "email: "toto@gmail.com"  string requied
+           "email": "toto@gmail.com"  string requied
            "password":"password"  string requied
          }  
 

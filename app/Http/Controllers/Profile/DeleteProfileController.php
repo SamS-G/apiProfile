@@ -5,8 +5,8 @@
     use AllowDynamicProperties;
     use App\Http\Controllers\BaseController;
     use App\Http\Responses\API\ApiResponse;
-    use App\Models\Profile;
     use Illuminate\Http\JsonResponse;
+    use Illuminate\Validation\ValidationException;
     use Symfony\Component\HttpFoundation\Request;
 
     #[AllowDynamicProperties] class DeleteProfileController extends BaseController
@@ -14,7 +14,10 @@
         /*
          * Delete profile for administrator with valid token
          */
-        public function delete(Request $request, $id): JsonResponse
+        /**
+         * @throws ValidationException
+         */
+        public function delete(Request $request, int $id): JsonResponse
         {
             validator($request->route()->parameters(), [
                 "id" => "required",

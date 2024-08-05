@@ -22,9 +22,9 @@
         {
             try {
                 $user = [
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => $request->password,
+                    'name' => $request->validated('name'),
+                    'email' => $request->validated('email'),
+                    'password' => $request->validated('password'),
                     'user_type_id' => 2
                 ];
 
@@ -46,14 +46,16 @@
         public function login(LoginRequest $request): JsonResponse
         {
             $identifiers = [
-                'email' => $request->email,
-                'password' => $request->password,
+                'email' => $request->validated('email'),
+                'password' => $request->validated('password'),
             ];
 
             $user = User::where('email', $identifiers['email'])->first();
 
             if (is_null($user)) {
-                return $this->apiResponse->error("User not found", 404, ["userMail" => $identifiers['email']]);
+                return $this->apiResponse->error("User not found", 404, [
+                    "userMail" => $identifiers['email']
+                ]);
             }
 
             if (Hash::check($identifiers['password'], $user->password) && ($user->is_active)) {

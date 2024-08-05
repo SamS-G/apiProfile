@@ -7,7 +7,6 @@
     use App\Http\Responses\API\ApiResponse;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\DB;
-    use Throwable;
 
     class EditProfileController extends BaseController
     {
@@ -16,16 +15,17 @@
          */
         public function edit(UpdateProfileRequest $request): JsonResponse
         {
+            // Validate request data
             $dataToUpdate = [
-                'id' => $request->id,
-                'last_name' => $request->lastname,
-                'first_name' => $request->firstname,
-                "status" => $request->status
+                'id' => $request->validated('id'),
+                'last_name' => $request->validated('lastname'),
+                'first_name' => $request->validated('firstname'),
+                "status" => $request->validated('status')
             ];
 
             DB::beginTransaction();
 
-            $edit = $this->profileRepository->edit($request->id, $dataToUpdate);
+            $edit = $this->profileRepository->edit($dataToUpdate['id'], $dataToUpdate);
 
             if ($edit) {
                 DB::commit();

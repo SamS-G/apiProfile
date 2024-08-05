@@ -16,10 +16,11 @@
          */
         public function create(CreateProfileRequest $request): JsonResponse
         {
+            // Get and validate data
             $data = [
-                'last_name' => $request->lastname,
-                'first_name' => $request->firstname,
-                'status' => $request->status
+                'last_name' => $request->validated('lastname'),
+                'first_name' => $request->validated('firstname'),
+                'status' => $request->validated('status')
             ];
 
             DB::beginTransaction();
@@ -29,7 +30,9 @@
 
                 DB::commit();
 
-                return ApiResponse::success('Profile created successfully', 201, ['new_user_data' => $data]);
+                return ApiResponse::success('Profile created successfully', 201, [
+                    'new_user_data' => $data
+                ]);
             } catch (Throwable $t) {
                 DB::rollBack();
                 $this->apiResponse->error($t->getMessage(), 500, [$t->getTraceAsString()]);

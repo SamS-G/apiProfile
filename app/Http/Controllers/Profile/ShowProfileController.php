@@ -17,8 +17,8 @@
         public function showByName(ShowProfileRequest $request): JsonResponse
         {
             $names = [
-                'lastname' => $request->lastname,
-                'firstname' => $request->firstname,
+                'lastname' => $request->validated('lastname'),
+                'firstname' => $request->validated('firstname'),
             ];
             $profile = $this->profileRepository->getByName($names);
 
