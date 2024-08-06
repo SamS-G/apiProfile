@@ -2,19 +2,18 @@
 
     namespace App\Http\Controllers\Profile;
 
-    use App\Http\Controllers\BaseController;
     use App\Http\Requests\Profile\ShowProfileRequest;
     use App\Http\Resources\Profile\ProfileResource;
+    use App\Http\Responses\API\ApiErrorResponse;
     use App\Http\Responses\API\ApiSuccessResponse;
     use App\Repository\Profile\ProfileRepository;
-    use Illuminate\Http\JsonResponse;
 
-    class ShowProfileController extends BaseController
+    class ShowProfileController
     {
         /*
          * Search existing and active profile, secured.
          */
-        public function showByName(ShowProfileRequest $request, ProfileRepository $profileRepository): JsonResponse
+        public function showByName(ShowProfileRequest $request, ProfileRepository $profileRepository): ApiErrorResponse|ApiSuccessResponse
         {
             $names = [
                 'lastname' => $request->validated('lastname'),
@@ -23,8 +22,8 @@
             $profile = $profileRepository->getByName($names);
 
             if ($profile->isEmpty()) {
-                return ApiSuccessResponse::error("No occurrence found, check yours datas", 404);
+                return new ApiErrorResponse("No occurrence found, check yours datas", null, 404);
             }
-            return ApiSuccessResponse::success(sprintf('%s%s', "Profile for user name = ", implode(" ", $names)), 200, ProfileResource::collection($profile));
+            return new ApiSuccessResponse(ProfileResource::collection($profile), sprintf('%s%s', "Profile for user name = ", implode(" ", $names)));
         }
     }

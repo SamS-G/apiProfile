@@ -1,6 +1,6 @@
 <?php
 
-    use App\Http\Responses\API\ApiResponse;
+    use App\Http\Responses\API\ApiErrorResponse;
     use Illuminate\Foundation\Application;
     use Illuminate\Foundation\Configuration\Exceptions;
     use Illuminate\Foundation\Configuration\Middleware;
@@ -18,19 +18,19 @@
         })
         ->withExceptions(function (Exceptions $exceptions) {
             $exceptions->report(function (ArgumentCountError $e) {
-               ApiResponse::error('Arguments missing, check your request', 500);
+               return new ApiErrorResponse('Arguments missing, check your request', $e);
             });
             $exceptions->report(function (Error $e) {
-                ApiResponse::error('Internal error, check your request', 500, [$e->getMessage()]);
+                return new ApiErrorResponse('Internal error, check your request', $e);
             });
             $exceptions->report(function (ErrorException $e) {
-                ApiResponse::error('Internal error, check your request', 500, [$e->getMessage()]);
+                return new ApiErrorResponse('Internal error, check your request', $e);
             });
             $exceptions->report(function (TypeError $e) {
-                ApiResponse::error('Internal error, check your request', 500, [$e->getMessage()]);
+                return new ApiErrorResponse('Internal error, check your request', $e);
             });
             $exceptions->report(function (NotFoundHttpException $e) {
-                ApiResponse::error('Route not found, please check your url or params', 500, [$e->getMessage()]);
+                return new ApiErrorResponse('Route not found, please check your url or params', $e);
             });
         })
         ->create();
