@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('last_name', 255);
             $table->string('first_name', 255);
             $table->string('avatar', 255)->nullable();
-            $table->enum('status', ["actif","inactif","en_attente"]);
+            $table->integer('status')->unsigned();
             $table->timestamps();
         });
     }

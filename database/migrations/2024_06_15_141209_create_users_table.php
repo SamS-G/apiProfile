@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('email', 255);
-            $table->integer('user_type_id')->unsigned();
+            $table->integer('user_type')->unsigned();
             $table->boolean('is_active')->default(false);
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password');

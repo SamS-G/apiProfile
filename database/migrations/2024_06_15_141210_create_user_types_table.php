@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('user_types', function (Blueprint $table) {
+        Schema::create('user_type', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle', 255);
+            $table->enum('type', ['user', 'admin'])->default('user');
             $table->timestamps();
         });
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_types');
+        Schema::dropIfExists('user_type');
     }
 };
