@@ -25,7 +25,7 @@
             return [
                 'lastname' => 'required|string|max:255',
                 'firstname' => 'required|string|max:255',
-                "status" => "required|in:actif,inactif,'en attente'"
+                "status" => "required|in:active,inactive,waiting,deleted"
             ];
         }
     }
