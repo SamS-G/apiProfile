@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\ProfileStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,6 @@ class Profile extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'status_id' => ProfileStatus::class
+        'status_id' => ProfileStatusEnum::class
     ];
 }
