@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\UserTypeEnum;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,7 +45,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'id' => 'integer',
-        'user_type_id' => 'integer',
+        'user_type_id' => UserTypeEnum::class,
         'is_active' => 'boolean',
         'email_verified_at' => 'datetime',
     ];

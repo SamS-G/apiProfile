@@ -4,21 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Profile extends Model
+class ProfileStatus extends Model
 {
     use HasFactory;
 
+    protected $table = 'profile_status';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'last_name',
-        'first_name',
-        'avatar',
-        'status_id',
+        'status',
     ];
 
     /**
@@ -27,7 +26,11 @@ class Profile extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'status_id' => ProfileStatus::class
+        'id' => 'integer'
     ];
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(Profile::class);
+    }
 }
