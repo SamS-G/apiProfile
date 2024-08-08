@@ -2,6 +2,7 @@
     namespace Database\Seeders;
 
     use App\Models\Profile;
+    use App\Models\ProfileStatus;
     use App\Models\User;
     use App\Models\UserType;
     use Illuminate\Database\Seeder;
@@ -12,6 +13,7 @@
         {
             UserType::factory()->count(2)->create();
             User::factory()->count(10)->create();
+            ProfileStatus::factory()->count(4)->create();
             Profile::factory()->count(20)->create();
         }
     }
