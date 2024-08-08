@@ -20,11 +20,11 @@
     Route::prefix('profile')->group(function () {
         Route::middleware('auth:sanctum')->group(function () {
             {
-                Route::post('/name', [ShowProfileController::class, 'showByName'])->name('name');
+                Route::get('/name', [ShowProfileController::class, 'showByName'])->name('name');
                 Route::post('/create', [CreateProfileController::class, 'create'])->name('create');
                 Route::put('/edit', [EditProfileController::class, 'edit'])->name('edit');
                 Route::delete('/delete/{id}', [DeleteProfileController::class, 'delete'])->name('delete');
-                Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+                Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
             }
         });
     });
