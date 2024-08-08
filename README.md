@@ -113,7 +113,7 @@ php artisan db:seed
 
 #### Routes protégées nécessitent d'être authentifié :
 
-1. _Route : **/api/profile/logout**_ méthode:  **GET**
+1. _Route : **/api/logout**_ méthode:  **POST**
    - Supprime le token ce qui supprimer l'accès aux routes protégées
 
    
@@ -121,7 +121,7 @@ php artisan db:seed
     {
      "message": "Unauthenticated." string
     }
-2. Route : **/api/profile/name** méthode : **POST**
+2. Route : **/api/profile/name** méthode : **GET**
     - Permet de rechercher un profile par son nom et prénom (insensible à la case).
 
 
