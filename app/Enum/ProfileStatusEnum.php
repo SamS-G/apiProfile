@@ -3,10 +3,10 @@
 
     namespace App\Enum;
 
-    enum ProfileStatusEnum: string
+    enum ProfileStatusEnum: int
     {
-        case Active = 'active';
-        case Inactive = 'inactive';
-        case Deleted = 'deleted';
-        case Pending = 'pending';
+        case active = 1;
+        case inactive = 2;
+        case deleted = 3;
+        case pending = 4;
     }

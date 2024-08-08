@@ -3,8 +3,8 @@
 
     namespace App\Enum;
 
-    enum UserTypeEnum: string
+    enum UserTypeEnum: int
     {
-        case User = 'user';
-        case Admin = 'admin;';
+        case user = 1;
+        case admin = 2;
     }
