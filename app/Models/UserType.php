@@ -10,6 +10,8 @@ class UserType extends Model
 {
     use HasFactory;
 
+    protected $table = 'user_type';
+
     /**
      * The attributes that are mass assignable.
      *

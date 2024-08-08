@@ -17,10 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('email', 255);
-            $table->integer('user_type')->unsigned();
             $table->boolean('is_active')->default(false);
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password');
+            $table->bigInteger('user_type_id')->unsigned();
+            $table->foreign('user_type_id')->references('id')->on('user_type')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 

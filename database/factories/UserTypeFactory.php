@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\UserType;
 
 class UserTypeFactory extends Factory
@@ -21,7 +20,7 @@ class UserTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'libelle' => $this->faker->unique()->randomElement(["Administrateur","Utilisateur"]),
+            'type' => $this->faker->unique()->randomElement(["Admin","User"]),
         ];
     }
 }

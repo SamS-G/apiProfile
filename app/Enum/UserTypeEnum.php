@@ -3,8 +3,8 @@
 
     namespace App\Enum;
 
-    enum UserTypeEnum
+    enum UserTypeEnum: string
     {
-public const USER = 0;
-public const ADMIN = 1;
+        case User = 'user';
+        case Admin = 'admin;';
     }
