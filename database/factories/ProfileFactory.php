@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+
 use App\Models\Profile;
+use Illuminate\Support\Facades\DB;;
 
 class ProfileFactory extends Factory
 {
@@ -20,11 +21,14 @@ class ProfileFactory extends Factory
      */
     public function definition(): array
     {
+
+        $status = DB::table('profile_status')->pluck('id');
+
         return [
             'last_name' => $this->faker->lastName(),
             'first_name' => $this->faker->firstName(),
             'avatar' => $this->faker->filePath(),
-            'status' => $this->faker->randomElement(["actif","inactif","en_attente"]),
+            'status_id' => $this->faker->randomElement($status),
         ];
     }
 }
