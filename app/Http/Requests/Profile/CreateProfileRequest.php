@@ -2,8 +2,10 @@
 
     namespace App\Http\Requests\Profile;
 
+    use App\Models\ProfileStatus;
     use Illuminate\Contracts\Validation\ValidationRule;
     use Illuminate\Foundation\Http\FormRequest;
+    use App\Rules\EnumValue;
 
     class CreateProfileRequest extends FormRequest
     {
@@ -25,7 +27,9 @@
             return [
                 'lastname' => 'required|string|max:255',
                 'firstname' => 'required|string|max:255',
-                "status" => "required|in:active,inactive,waiting,deleted"
+                "status" => [
+                    'required', new EnumValue(ProfileStatus::class)
+                ],
             ];
         }
     }

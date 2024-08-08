@@ -2,6 +2,8 @@
 
     namespace App\Http\Requests\Profile;
 
+    use App\Models\ProfileStatus;
+    use App\Rules\EnumValue;
     use Illuminate\Contracts\Validation\ValidationRule;
     use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,10 +25,12 @@
         public function rules(): array
         {
             return [
-                'id' =>'required',
+                'id' => 'required',
                 'lastname' => 'required|string|max:255',
                 'firstname' => 'required|string|max:255',
-                "status" => "required|in:active,inactive,waiting,deleted"
+                "status" => [
+                    'required', new EnumValue(ProfileStatus::class)
+                ],
             ];
         }
     }
