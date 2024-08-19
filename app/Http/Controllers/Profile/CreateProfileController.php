@@ -3,6 +3,7 @@
     namespace App\Http\Controllers\Profile;
 
     use App\DataTransferObjects\ProfileDTO;
+    use App\Enum\ProfileStatusEnum;
     use App\Http\Requests\Profile\CreateProfileRequest;
     use App\Http\Responses\API\ApiErrorResponse;
     use App\Http\Responses\API\ApiSuccessResponse;
@@ -27,7 +28,13 @@
 
                 DB::commit();
 
-                return new ApiSuccessResponse(['new_user_data' => $profileDTO], 'Profile created successfully', 201);
+                return new ApiSuccessResponse([
+                    'lastname' => $profileDTO->lastname,
+                    'firstname' => $profileDTO->firstname,
+                    'avatar' => $profileDTO->avatar ?? null,
+                    'status' => ProfileStatusEnum::from($profileDTO->statusId)->name
+                ],
+                    'Profile created successfully', 201);
 
             } catch (Throwable $t) {
                 DB::rollBack();

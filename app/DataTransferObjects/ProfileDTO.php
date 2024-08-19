@@ -9,7 +9,7 @@
         public function __construct(
             public string $lastname,
             public string $firstname,
-            public string $avatar,
+            public mixed $avatar,
             public int    $statusId,
         )
         {
@@ -18,10 +18,10 @@
         public static function fromRequest(CreateProfileRequest $request): self
         {
             return new self(
-                lastname: $request->input('last_name'),
-                firstname: $request->input('first_name'),
+                lastname: $request->input('lastname'),
+                firstname: $request->input('firstname'),
                 avatar: $request->input('avatar'),
-                statusId: $request->input('status_id'),
+                statusId: $request->input('status'),
             );
         }
     }

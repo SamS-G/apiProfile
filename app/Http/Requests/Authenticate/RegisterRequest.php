@@ -38,7 +38,6 @@
 
         public function prepareForValidation(): void
         {
-
             try {
                 $userTypeId = UserTypeEnum::{$this->request->get('userType')}->value;
                 $this->merge([

@@ -26,7 +26,7 @@
         public function create(ProfileDTO $profileDTO)
         {
             return Profile::create([
-                'last_name' => $profileDTO->firstname,
+                'last_name' => $profileDTO->lastname,
                 'first_name' => $profileDTO->firstname,
                 'avatar' => $profileDTO->avatar,
                 'status_id' => $profileDTO->statusId

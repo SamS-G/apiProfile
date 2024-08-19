@@ -2,10 +2,13 @@
 
     namespace App\Http\Requests\Profile;
 
-    use App\Models\ProfileStatus;
+    use App\Enum\ProfileStatusEnum;
+    use App\Enum\UserTypeEnum;
+    use Error;
     use Illuminate\Contracts\Validation\ValidationRule;
     use Illuminate\Foundation\Http\FormRequest;
-    use App\Rules\EnumValue;
+    use Illuminate\Support\Facades\Log;
+    use Illuminate\Validation\Rules\Enum;
 
     class CreateProfileRequest extends FormRequest
     {
@@ -28,8 +31,39 @@
                 'lastname' => 'required|string|max:255',
                 'firstname' => 'required|string|max:255',
                 "status" => [
-                    'required', new EnumValue(ProfileStatus::class)
+                    [
+                        'numeric', new Enum(ProfileStatusEnum::class)
+                    ]
                 ],
+            ];
+        }
+        public function prepareForValidation(): void
+        {
+            try {
+                $status = ProfileStatusEnum::{$this->request->get('status')}->value;
+                $this->merge([
+                    'status' => $status
+                ]);
+            } catch (Error $t) {
+                $this->merge([
+                    'status' => null
+                ]);
+
+                Log::error('Profile status request error', [
+                    'message' => $t->getMessage(),
+                    'code' => $t->getCode(),
+                    'trace' => $t->getTraceAsString()
+                ]);
+            }
+        }
+
+        /**
+         * Specific message error
+         */
+        public function messages(): array
+        {
+            return [
+                'status.numeric' => 'Profile status error, check your value'
             ];
         }
     }

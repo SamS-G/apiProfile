@@ -47,8 +47,6 @@
 
                 return new ApiErrorResponse('Can\'t create new user', $t);
             }
-
-
         }
 
         /*
@@ -58,8 +56,7 @@
         /**
          * @throws RequestException
          */
-        public
-        function login(LoginRequest $request): ApiSuccessResponse|ApiErrorResponse
+        public function login(LoginRequest $request): ApiSuccessResponse|ApiErrorResponse
         {
             $identifiers = [
                 'email' => $request->validated('email'),
@@ -90,8 +87,7 @@
         /*
          * Revoke token, protected end points are closed for current user
          */
-        public
-        function logout(): ApiSuccessResponse
+        public function logout(): ApiSuccessResponse
         {
             auth()->user()->tokens()->delete();
 

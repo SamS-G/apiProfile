@@ -157,7 +157,7 @@ php artisan db:seed
     {
      "lastname": "Tom", string required
      "firstname": "Cruise", string required
-     "status": "inactif" string required
+     "status": "inactive" string required
     }
 
     Exemple de retour:  
@@ -172,6 +172,7 @@ php artisan db:seed
       }
      }
     }
+- Les différents status attribuables sont :  "active", "inactive", "deleted", "pending"
 
 4. Route : **/api/profile/edit** méthode : **PUT**
     - Permet d'éditer les données d'un profile grâce à son ID.
