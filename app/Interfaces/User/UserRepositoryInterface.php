@@ -2,7 +2,10 @@
 
     namespace App\Interfaces\User;
 
+    use App\DataTransferObjects\UserDTO;
+    use App\Models\User;
+
     interface UserRepositoryInterface
     {
-        public function create(array $data);
+        public function create(UserDTO $userDTO): User;
     }

@@ -2,6 +2,7 @@
 
     namespace App\Http\Controllers\Profile;
 
+    use App\DataTransferObjects\ProfileDTO;
     use App\Http\Requests\Profile\CreateProfileRequest;
     use App\Http\Responses\API\ApiErrorResponse;
     use App\Http\Responses\API\ApiSuccessResponse;
@@ -16,21 +17,17 @@
          */
         public function create(CreateProfileRequest $request, ProfileRepository $profileRepository): ApiErrorResponse|ApiSuccessResponse
         {
-            // Get and validate data
-            $data = [
-                'last_name' => $request->validated('lastname'),
-                'first_name' => $request->validated('firstname'),
-                'status' => $request->validated('status')
-            ];
+
+            $profileDTO = ProfileDTO::fromRequest($request);
 
             DB::beginTransaction();
 
             try {
-                $profileRepository->create($data);
+                $profileRepository->create($profileDTO);
 
                 DB::commit();
 
-                return new ApiSuccessResponse(['new_user_data' => $data], 'Profile created successfully', 201);
+                return new ApiSuccessResponse(['new_user_data' => $profileDTO], 'Profile created successfully', 201);
 
             } catch (Throwable $t) {
                 DB::rollBack();
