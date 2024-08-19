@@ -2,6 +2,8 @@
 
     namespace App\Http\Controllers\Profile;
 
+    use App\DataTransferObjects\ProfileDTO;
+    use App\Enum\ProfileStatusEnum;
     use App\Http\Exceptions\RequestException;
     use App\Http\Requests\Profile\UpdateProfileRequest;
     use App\Http\Responses\API\ApiErrorResponse;
@@ -19,24 +21,21 @@
          */
         public function edit(UpdateProfileRequest $request, ProfileRepository $profileRepository): ApiSuccessResponse|ApiErrorResponse
         {
-            // Validate request data
-            $dataToUpdate = [
-                'id' => $request->validated('id'),
-                'last_name' => $request->validated('lastname'),
-                'first_name' => $request->validated('firstname'),
-                "status" => $request->validated('status')
-            ];
+            $profileDTO = ProfileDTO::fromRequest($request);
 
             DB::beginTransaction();
 
-            $edit = $profileRepository->edit($dataToUpdate['id'], $dataToUpdate);
+            $edit = $profileRepository->edit($profileDTO);
 
             if ($edit) {
                 DB::commit();
-                return new ApiSuccessResponse(['new_datas' => $dataToUpdate],'Profile updated successfully', 201);
+                return new ApiSuccessResponse(['lastname' => $profileDTO->lastname,
+                    'firstname' => $profileDTO->firstname,
+                    'avatar' => $profileDTO->avatar ?? null,
+                    'status' => ProfileStatusEnum::from($profileDTO->statusId)->name],'Profile updated successfully', 200);
             }
             DB::rollBack();
 
-           return new ApiErrorResponse("Profile update fail, check yours datas !", throw new RequestException('Editing profile error profile error', 400, __FILE__, __LINE__));
+           return new ApiErrorResponse("Profile update fail, check yours datas", throw new RequestException('Editing profile error profile error', 400, __FILE__, __LINE__));
         }
     }

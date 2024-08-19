@@ -33,9 +33,15 @@
             ]);
         }
 
-        public function edit($id, $data): int
+        public function edit(ProfileDTO $profileDTO)
         {
-            return Profile::whereId($id)->update($data);
+            return Profile::whereId($profileDTO->id)->update([
+                'id' => $profileDTO->id,
+                'last_name' => $profileDTO->lastname,
+                'first_name' => $profileDTO->firstname,
+                'avatar' => $profileDTO->avatar,
+                'status_id' => $profileDTO->statusId
+            ]);
         }
 
         public function delete($id): int

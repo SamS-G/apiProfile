@@ -183,7 +183,7 @@ php artisan db:seed
       "id": 21, integer required
       "lastname": "Brad", string required
       "firstname": "Pit", string required
-      "status": "actif" string required, actif|inactif|en_attente
+      "status": "actif" string required, active|inactive|deleted|pending
       }
 
     Exemple de retour:  
