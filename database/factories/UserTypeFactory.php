@@ -20,7 +20,7 @@ class UserTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => $this->faker->unique()->randomElement(["Admin","User"]),
+            'type' => $this->faker->unique()->randomElement(["User", "Admin"]),
         ];
     }
 }
