@@ -66,7 +66,7 @@
             $user = User::where('email', $identifiers['email'])->first();
 
             if (is_null($user)) {
-                return new ApiErrorResponse("User not found", null, 404);
+                return new ApiErrorResponse("Login failed, unauthorized", null, 401);
             }
 
             if (Hash::check($identifiers['password'], $user->password) && ($user->is_active) && ($user->user_type_id === UserTypeEnum::admin)) {
