@@ -2,7 +2,6 @@
 
     namespace App\Http\Controllers\Profile;
 
-    use App\Http\Resources\Profile\ProfileResource;
     use App\Http\Responses\API\ApiErrorResponse;
     use App\Http\Responses\API\ApiSuccessResponse;
     use App\Repository\Profile\ProfileRepository;
@@ -20,7 +19,7 @@
                 $data = $profileRepository->index();
 
                 if ($data->count() > 0) {
-                    return new ApiSuccessResponse(ProfileResource::collection($data), 'Index of Profiles', 200);
+                    return new ApiSuccessResponse($data, 'Index of Profiles', 200);
                 }
                  return new ApiSuccessResponse([], 'Index of Profiles is empty', 204);
 

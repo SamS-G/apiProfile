@@ -4,15 +4,27 @@
 
     use App\DataTransferObjects\ProfileDTO;
     use App\Enum\ProfileStatusEnum;
+    use App\Http\Resources\Profile\ProfileResource;
     use App\Interfaces\Profile\ProfileRepositoryInterface;
     use App\Models\Profile;
-    use Illuminate\Database\Eloquent\Collection;
+    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
     class ProfileRepository implements ProfileRepositoryInterface
     {
-        public function index(): Collection
+        public function index(): AnonymousResourceCollection
         {
-            return Profile::where('status_id', ProfileStatusEnum::active)->get();
+            $profiles = Profile::where('status_id', ProfileStatusEnum::active)->paginate(15);
+
+            return ProfileResource::collection($profiles)->additional([
+                'meta' => [
+                    'total' => $profiles->total(),
+                    'page' => $profiles->currentPage(),
+                ],
+                'links' => [
+                    'self' => $profiles->url($profiles->currentPage()),
+                    'next' => $profiles->nextPageUrl(),
+                ]
+            ]);
         }
 
         public function getByName(array $names): \Illuminate\Support\Collection

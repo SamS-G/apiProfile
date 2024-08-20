@@ -27,6 +27,7 @@
                 [
                     'success' => $this->success,
                     'message' => $this->message,
+                    'additional' => $this->data->additional ?? [],
                     'data' => $this->data,
                 ],
                 $this->code

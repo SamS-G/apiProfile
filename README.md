@@ -29,7 +29,7 @@ php artisan db:seed
 
 #### Routes publics ne nécessitent pas d'être authentifié :
 1. Route : __/api/profiles__ méthode : **GET**
-   - Index de tous les profiles ayants le status *actif*, l'information *status* n'est pas visible/accessible, il faut être authentifié pour qu'il soit affiché.
+   - Index des 15 premiers profiles ayants le status *actif* (info de pagination dans la réponse), l'information *status* n'est pas visible/accessible, il faut être authentifié pour qu'il soit affiché.
        
 
         Exemple d'appel :    
@@ -40,25 +40,36 @@ php artisan db:seed
          }  
 
         Exemple de retour:  
-        {  
-           "success": true,  string
-           "message": "Index of Profiles",  string
-           "data": [  
-        {  
-           "id": 2,  integer
-           "last_name": "Strosin",  string
-           "first_name": "Monserrate",  string
-           "avatar": "/tmp/fakerqDZkDi",  string
-           "created_at": "15-06-2024 "  string
-        },  
         {
-           "id": 5,  integer
-           "last_name": "Yost",  string
-           "first_name": "Uriel",  string
-           "avatar": "/tmp/fakerQ1r4tL",  string
-           "created_at": "15-06-2024 "  string
-        },  
-      }  
+    "success": true,
+    "message": "Index of Profiles",
+    "additional": {
+        "meta": {
+            "total": 2,
+            "page": 1
+        },
+        "links": {
+            "self": "http://apiprofile.local/api/profiles?page=1",
+            "next": null
+        }
+    },
+    "data": [
+        {
+            "id": 2,
+            "last_name": "Torp",
+            "first_name": "Marianne",
+            "avatar": "/tmp/fakercFsSHQ",
+            "created_at": "08-08-2024 "
+        },
+        {
+            "id": 3,
+            "last_name": "Abshire",
+            "first_name": "Kristina",
+            "avatar": "/tmp/fakerWz0ovJ",
+            "created_at": "08-08-2024 "
+        },
+    ]
+}
      
 
 2. Route : __/api/login__ méthode : **POST**
