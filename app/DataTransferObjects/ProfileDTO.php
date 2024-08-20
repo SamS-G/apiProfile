@@ -3,6 +3,7 @@
     namespace App\DataTransferObjects;
 
     use App\Http\Requests\Profile\CreateProfileRequest;
+    use App\Http\Requests\Profile\ShowProfileRequest;
 
     readonly class ProfileDTO
     {
@@ -16,7 +17,7 @@
         {
         }
 
-        public static function fromRequest(CreateProfileRequest $request): self
+        public static function fromRequest(CreateProfileRequest|ShowProfileRequest $request): self
         {
             return new self(
                 id: $request->input('id'),
