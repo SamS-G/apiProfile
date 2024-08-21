@@ -5,7 +5,7 @@
 
 Pré-requis:
     
-* utiliser php 8.2
+* utiliser php 8.3
 * avoir composer installé
 * renseigner les coordonnées de votre base de données dans le .env
 
